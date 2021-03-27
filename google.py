@@ -4,16 +4,17 @@ import time
 import urllib.request
 import os
 
+SCROLL_PAUSE_TIME = 1
+END_NUM = 151
+SLEEP_TIME = 2
+
+# Execute chromedriver
 driver = webdriver.Chrome()
 driver.get("https://www.google.co.kr/imghp?hl=ko&tab=ri&authuser=0&ogbl")
 elem = driver.find_element_by_name("q")
 search = input("Input the word you want to find: ")
 elem.send_keys(search)
 elem.send_keys(Keys.RETURN)
-
-SCROLL_PAUSE_TIME = 1
-END_NUM = 151
-SLEEP_TIME = 2
 
 # Get scroll height
 last_height = driver.execute_script("return document.body.scrollHeight")
@@ -38,13 +39,14 @@ while True:
 images = driver.find_elements_by_css_selector(".rg_i.Q4LuWd")
 count = 1
 
-# input your directory path
-savepath = "C:/Users/Southernwind/Desktop/images/" + search
-    
+# Input your directory path
+savepath = "Input your directory path" + search
+
+# Create directory    
 if not os.path.exists(savepath):
     os.makedirs(savepath)
 
-
+# Image crawling
 for image in images:
     try:
         image.click()
